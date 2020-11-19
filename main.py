@@ -12,16 +12,23 @@ def add_word(wordlist):
         return wordlist
     else:
         wordlist.append(added_word)
-        print (added_word.upper() + " has been added to the dictionary. ")
-    return wordlist.sort()
+        print(added_word + " has been added to the dictionary. ")
+        wordlist.sort()
+        print(wordlist)
+    return wordlist
 
 
-
-def remove_word():
+def remove_word(wordlist):
     removed_word = ""
     removed_word = input("Type the word you want to removed: ")
-    print (removed_word.upper() + " has been removed from the dictionary")
-
+    removed_word = removed_word.lower()
+    if(removed_word in wordlist):
+        wordlist.remove(removed_word)
+        print(removed_word + " has been removed from the dictionary")
+        print(wordlist)
+    else:
+        print("That word does not exist in the dictionary")
+    return
 
 
 def txt_to_list():
@@ -36,7 +43,6 @@ def list_to_txt(l):
     x = ""
     for word in l:
         x += word + "\n"
-    print(x)
     file.write(bytes(x, 'UTF-8'))
     file.close()
     return
@@ -44,16 +50,18 @@ def list_to_txt(l):
 
 def main():
     w = txt_to_list()
+    print("Here is the current dictionary!")
     print(w)
     user_edit_choice = str(input("Would you like to edit this dictionary? (Y/N) ").lower())
     if user_edit_choice == 'y' or user_edit_choice == 'yes':
         user_edit_choice = int(input("Would you like to add or remove a word? (1/2) "))
         if user_edit_choice == 1:
             w = add_word(w)
-            print(type(w))
             list_to_txt(w)
+
         elif user_edit_choice == 2:
-            remove_word()
+            remove_word(w)
+            list_to_txt(w)
         else:
             print("that is not a choice")
     elif user_edit_choice == 'n' or user_edit_choice == 'no':
@@ -70,8 +78,20 @@ def main():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print("Here is the current dictionary!")
+    replay = ""
+    game = "on"
     main()
-
+    while game == "on":
+        replay = input("Do you want play again? (Y/N) ").lower()
+        if replay == "yes" or replay == "y":
+            main()
+            continue
+        elif replay == "no" or replay == "n":
+            print("Okay, Goodbye.")
+            game = "off"
+            break
+        else:
+            print("That was not an option. ")
+            continue
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
