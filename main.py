@@ -13,7 +13,7 @@ def add_word(wordlist):
     else:
         wordlist.append(added_word)
         print (added_word.upper() + " has been added to the dictionary. ")
-    return added_word.sort()
+    return wordlist.sort()
 
 
 
@@ -31,8 +31,15 @@ def txt_to_list():
     return words
 
 
-def list_to_txt():
-    print("text")
+def list_to_txt(l):
+    file = open("word_list.txt", "wb")
+    x = ""
+    for word in l:
+        x += word + "\n"
+    print(x)
+    file.write(bytes(x, 'UTF-8'))
+    file.close()
+    return
 
 
 def main():
@@ -43,6 +50,8 @@ def main():
         user_edit_choice = int(input("Would you like to add or remove a word? (1/2) "))
         if user_edit_choice == 1:
             w = add_word(w)
+            print(type(w))
+            list_to_txt(w)
         elif user_edit_choice == 2:
             remove_word()
         else:
