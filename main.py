@@ -47,6 +47,14 @@ def list_to_txt(l):
     file.close()
     return
 
+def searchword(wordlist):
+    letterlist = []
+    letter = input("What first letter would you like to search for?: ").lower()
+    for word in wordlist:
+        if word[0] == letter:
+            letterlist.append(word)
+    return letterlist
+
 
 def main():
     w = txt_to_list()
@@ -67,7 +75,7 @@ def main():
     elif user_edit_choice == 'n' or user_edit_choice == 'no':
         user_edit_choice = input("Would you like to search for a word? (Y/N) ").lower()
         if user_edit_choice == 'y' or user_edit_choice == 'yes':
-            print("searching...")
+            print(searchword(w))
         elif user_edit_choice == 'n' or user_edit_choice == 'no':
             print("Goodbye.")
         else:
